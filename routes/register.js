@@ -22,24 +22,24 @@ module.exports = function ( app ) {
         var User = global.dbHelper.getModel('user'),
             uname = req.body.uname;
         User.findOne({name: uname}, function (error, doc) {
-            if (doc) {
-                req.session.error = '用户名已存在！';
-                console.log('用户名已存在！');
-                res.send(500);
-            } else {
-                User.create({
-                    name: uname,
-                    password: req.body.upassword
-                }, function (error, doc) {
-                    if (error) {
-                        res.send(500);
-                    } else {
-                        req.session.error = '用户名创建成功！';
-                        console.log('用户名创建成功！');
-                        res.send(200);
-                    }
-                });
-            }
+        if (doc) {
+            req.session.error = '用户名已存在！';
+            console.log('用户名已存在！');
+            res.send(500);
+        } else {
+            User.create({
+                name: uname,
+                password: req.body.upassword
+            }, function (error, doc) {
+                if (error) {
+                    res.send(500);
+                } else {
+                    req.session.error = '用户名创建成功！';
+                    console.log('用户名创建成功！');
+                    res.send(200);
+                }
+            });
+        }
         });
     });
 }
