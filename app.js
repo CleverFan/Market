@@ -12,15 +12,6 @@ var session = require('express-session');
 
 var app = express();
 
-mongoose.connect("mongodb://127.0.0.1:27017/market");
-
-app.use(session({
-    secret:'secret',
-    cookie:{
-        maxAge:1000*60*30
-    }
-}));
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
  /*app.set('view engine', 'ejs');*/
@@ -34,6 +25,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+//注意这里的顺序
+mongoose.connect("mongodb://127.0.0.1:27017/market");
+
+app.use(session({
+    secret:'secret',
+    cookie:{
+        maxAge:1000*60*30
+    }
+}));
 
 require('./routes')(app); //app:express对象。;
 
