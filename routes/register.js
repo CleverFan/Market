@@ -25,7 +25,8 @@ module.exports = function ( app ) {
         if (doc) {
             req.session.error = '用户名已存在！';
             console.log('用户名已存在！');
-            res.send(500);
+            res.locals.message = '<div class="alert alert-danger" style="margin-bottom: 20px;color:red;text-align: center;">用户名已存在</div>';
+            res.render('register');
         } else {
             User.create({
                 name: uname,
@@ -36,7 +37,7 @@ module.exports = function ( app ) {
                 } else {
                     req.session.error = '用户名创建成功！';
                     console.log('用户名创建成功！');
-                    res.send(200);
+                    res.render('login');
                 }
             });
         }

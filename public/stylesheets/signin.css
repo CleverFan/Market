@@ -59,3 +59,7 @@ body {
 .form-signin button {
   border-radius: 0;
 }
+.regUrl{
+    float: right;
+    padding-right: 14px;
+}

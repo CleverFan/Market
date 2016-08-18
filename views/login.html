@@ -5,21 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="//cdn.bootcss.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="/stylesheets/signin.css" rel="stylesheet">
-    <script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
-    <script src="//cdn.bootcss.com/bootstrap/4.0.0-alpha.3/js/bootstrap.js"></script>
+
     <title>login</title>
 </head>
 <body>
+    <%- message %>
     <div class="signin">
         <div class="signin-head"><img src="images/test/head_120.png" alt="" class="img-circle"></div>
-        <form class="form-signin" role="form" action="login" method="post">
-            <input type="text" class="form-control" placeholder="用户名" required autofocus />
-            <input type="password" class="form-control" placeholder="密码" required />
-            <button class="btn btn-lg btn-warning btn-block" type="submit">登录</button>
+        <form class="form-signin" role="form" method="post">
+            <input type="text" class="form-control" name="uname" placeholder="用户名" required autofocus />
+            <input type="password" class="form-control" name="upassword" placeholder="密码" required />
+            <button class="btn btn-lg btn-warning btn-block" clsss="login">登录</button>
             <label class="checkbox">
                 <input type="checkbox" value="remember-me"> 记住我
             </label>
         </form>
+        <a href="register" class="regUrl">没有账号？注册</a>
     </div>
+    <script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap/4.0.0-alpha.3/js/bootstrap.js"></script>
+    <script>
+        $('.login').click(function () {
+            var data = $(".form-signin").serialize();
+            $.ajax({
+                url:'/login',
+                type:'POST',
+                data:data,
+                success:function(data,status){
+                    console.log(status);
+                    if(status == 'success'){
+                        location.href='home';
+                    }
+                },
+                error:function(data,status){
+                    if(status == "error"){
+                        location.href='login'
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>

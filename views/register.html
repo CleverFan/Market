@@ -10,7 +10,9 @@
 </head>
 <body>
 <div class="signin">
-    <form class="form-signin" role="form" action="register" method="post">
+    <%- message %>
+    <form class="form-signin" role="form" method="post">
+        <div style="height: 60px;"></div>
         <input type="text" class="form-control" placeholder="用户名" name="uname" required autofocus />
         <input type="password" class="form-control" name="upassword" placeholder="密码" required  />
         <input type="password" class="form-control" placeholder="确认密码" required />
@@ -22,7 +24,7 @@
 <script>
     $('.register').click(function () {
         //通过serialize()方法进行序列化表单值，创建文本字符串。
-        var data = $("form").serialize();
+        var data = $(".form-signin").serialize();
         //例如："username=张三&password=12345"
         $.ajax({
             url:'/register',
